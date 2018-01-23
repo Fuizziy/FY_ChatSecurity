@@ -48,7 +48,7 @@ public class ChatSecurity extends JavaPlugin implements Listener {
 		if (e.getPlayer().hasPermission("fychatsecurity.bypass"))
 			return; 
 
-		String rawentry = super_efficient ? e.getMessage().replaceAll("[^A-Za-z]", "") : e.getMessage(); 
+		String rawentry = super_efficient ? e.getMessage().replaceAll("[^A-Za-z]", "").toLowerCase() : e.getMessage().toLowerCase(); 
 		for (String s : words_list) {
 			if (rawentry.contains(s)) {
 				if (log_offenses)
