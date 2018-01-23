@@ -8,8 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent; 
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.plugin.java.JavaPlugin; 
  
  
 
@@ -22,13 +21,17 @@ public class ChatSecurity extends JavaPlugin implements Listener {
 	
 	private boolean check_commands; 
 	
-	public void onEnable() {
-		saveDefaultConfig();
+	public void fromConfig() {
 		words_list = new HashSet<String>(getConfig().getStringList("words_list"));
 		message = ChatColor.translateAlternateColorCodes('&', getConfig().getString("message"));
 		super_efficient = getConfig().getBoolean("super_efficient");
 		log_offenses = getConfig().getBoolean("log_offenses");
 		check_commands = getConfig().getBoolean("check_commands");
+	}
+	
+	public void onEnable() {
+		saveDefaultConfig();
+		fromConfig();
 		getLogger().info("by Fuizziy - Loaded"); 
 		if (check_commands)
 			getServer().getPluginManager().registerEvents(new CommandsListener(this), this);
@@ -43,26 +46,20 @@ public class ChatSecurity extends JavaPlugin implements Listener {
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) { 
 		if (e.getPlayer().hasPermission("fychatsecurity.bypass"))
-			return;
-		new BukkitRunnable() { 
-			@Override
-			public void run() { 
+			return; 
 
-				String rawentry = super_efficient ? e.getMessage().replaceAll("/[^A-Za-z]/", "") : e.getMessage();
-				getLogger().info(rawentry);
-				for (String s : words_list) {
-					if (rawentry.contains(s)) {
-						if (log_offenses)
-							Bukkit.getConsoleSender().sendMessage(ChatColor.RED + e.getPlayer().getName() + " tried to speak: " + ChatColor.WHITE + e.getMessage());
-						e.getPlayer().sendMessage(message.replace("%w", s));
-						e.setMessage(null);
-						e.setCancelled(true);
-						break;
-					}
-				} 
-				
+		String rawentry = super_efficient ? e.getMessage().replaceAll("[^A-Za-z]", "") : e.getMessage(); 
+		for (String s : words_list) {
+			if (rawentry.contains(s)) {
+				if (log_offenses)
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + e.getPlayer().getName() + " tried to speak: "
+							+ ChatColor.WHITE + e.getMessage());
+				e.getPlayer().sendMessage(message.replace("%w", s));
+				e.setMessage(null);
+				e.setCancelled(true);
+				break;
 			}
-		}.runTaskAsynchronously(this);
+		}
 		
 	}
 

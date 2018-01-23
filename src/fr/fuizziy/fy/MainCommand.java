@@ -22,6 +22,10 @@ public class MainCommand implements CommandExecutor {
 				result += s + ", ";
 			}   
 			sender.sendMessage(ChatColor.AQUA + "Prohibited words list: " + ChatColor.WHITE + (result)); 
+		} else if (args[0].toLowerCase().equals("reload")) {
+			instance.reloadConfig();
+			instance.fromConfig();
+			sender.sendMessage(ChatColor.GREEN + "Configuration reloaded"); 
 		}
 		return false;
 	}
