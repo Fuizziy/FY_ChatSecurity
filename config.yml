@@ -1,0 +1,7 @@
+message: "The word %w is prohibited"
+super_efficient: false
+log_offenses: true
+check_commands: false
+words_list:
+  - "fuck"
+  - "bitch"

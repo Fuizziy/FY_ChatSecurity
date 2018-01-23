@@ -1,0 +1,20 @@
+name: FYChatSecurity
+author: Fuizziy
+version: 1.0.0
+main: fr.fuizziy.fy.ChatSecurity
+commands:
+  chatsecurity:
+    description: main reputation command
+    permission: fyreputation.default
+    aliases: [fychatsecurity,fycs]
+permissions:
+  fychatsecurity.*:
+    description: gives access to all fycs permissions
+    children:
+      fychatsecurity.default: true
+      fychatsecurity.bypass: true
+  fychatsecurity.default:
+    description: Can see the restricted word list
+    default: true 
+  fychatsecurity.bypass:
+    description: Bypass the restricted words list 
