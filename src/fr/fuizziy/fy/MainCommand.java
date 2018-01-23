@@ -9,26 +9,25 @@ import net.md_5.bungee.api.ChatColor;
 public class MainCommand implements CommandExecutor {
 
 	ChatSecurity instance;
-	
+
 	public MainCommand(ChatSecurity instance) {
 		this.instance = instance;
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args[0].toLowerCase().equals("list")) {
 			String result = "";
 			for (String s : instance.words_list) {
 				result += s + ", ";
-			}   
-			sender.sendMessage(ChatColor.AQUA + "Prohibited words list: " + ChatColor.WHITE + (result)); 
+			}
+			sender.sendMessage(ChatColor.AQUA + "Prohibited words list: " + ChatColor.WHITE + (result));
 		} else if (args[0].toLowerCase().equals("reload")) {
 			instance.reloadConfig();
 			instance.fromConfig();
-			sender.sendMessage(ChatColor.GREEN + "Configuration reloaded"); 
+			sender.sendMessage(ChatColor.GREEN + "Configuration reloaded");
 		}
 		return false;
 	}
 
 }
- 

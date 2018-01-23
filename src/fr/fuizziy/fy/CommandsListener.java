@@ -2,22 +2,23 @@ package fr.fuizziy.fy;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;  
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CommandsListener implements Listener {
 
 	private ChatSecurity instance;
-	
+
 	public CommandsListener(ChatSecurity instance) {
 		this.instance = instance;
 	}
-	
+
 	@EventHandler
 	public void OnPlayerCommand(PlayerCommandPreprocessEvent e) {
 		if (e.getPlayer().hasPermission("fychatsecurity.bypass"))
-			return; 
+			return;
 
-		String rawentry = instance.super_efficient ? e.getMessage().replaceAll("/[^A-Za-z]/", "") : e.getMessage();
+		String rawentry = instance.super_efficient ? e.getMessage().replaceAll("/[^A-Za-z]/", "").toLowerCase()
+				: e.getMessage().toLowerCase();
 		for (String s : instance.words_list) {
 			if (rawentry.contains(s)) {
 				if (instance.log_offenses)
