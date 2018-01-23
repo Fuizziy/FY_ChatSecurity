@@ -1,4 +1,4 @@
-message: "The word %w is prohibited"
+message: "&cThe word &f%w &cis prohibited"
 super_efficient: false
 log_offenses: true
 check_commands: false

@@ -2,7 +2,8 @@ package fr.fuizziy.fy;
  
 import java.util.HashSet;
 import java.util.Set;
-  
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +29,7 @@ public class ChatSecurity extends JavaPlugin implements Listener {
 		super_efficient = getConfig().getBoolean("super_efficient");
 		log_offenses = getConfig().getBoolean("log_offenses");
 		check_commands = getConfig().getBoolean("check_commands");
-		getLogger().info("[FYChatSecurity] Loaded"); 
+		getLogger().info("by Fuizziy - Loaded"); 
 		if (check_commands)
 			getServer().getPluginManager().registerEvents(new CommandsListener(this), this);
 		getServer().getPluginManager().registerEvents(this, this); 
@@ -36,7 +37,7 @@ public class ChatSecurity extends JavaPlugin implements Listener {
 	}
 	
 	public void onDisable() {
-		getLogger().info("[FYChatSecurity] Unloaded");
+		getLogger().info("by Fuizziy - Unloaded");
 	}
 	 
 	@EventHandler
@@ -48,11 +49,13 @@ public class ChatSecurity extends JavaPlugin implements Listener {
 			public void run() { 
 
 				String rawentry = super_efficient ? e.getMessage().replaceAll("/[^A-Za-z]/", "") : e.getMessage();
+				getLogger().info(rawentry);
 				for (String s : words_list) {
 					if (rawentry.contains(s)) {
 						if (log_offenses)
-							getLogger().info(e.getPlayer().getName() + " tried to speak: '" + e.getMessage() + "'");
-						e.getPlayer().sendMessage(message.replace("%&w", s));
+							Bukkit.getConsoleSender().sendMessage(ChatColor.RED + e.getPlayer().getName() + " tried to speak: " + ChatColor.WHITE + e.getMessage());
+						e.getPlayer().sendMessage(message.replace("%w", s));
+						e.setMessage(null);
 						e.setCancelled(true);
 						break;
 					}

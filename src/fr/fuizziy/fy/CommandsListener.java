@@ -26,7 +26,7 @@ public class CommandsListener implements Listener {
 					if (rawentry.contains(s)) {
 						if (instance.log_offenses)
 							instance.getLogger().info(e.getPlayer().getName() + " tried to speak: '" + e.getMessage() + "'");
-						e.getPlayer().sendMessage(instance.message.replace("%&w", s));
+						e.getPlayer().sendMessage(instance.message.replace("%w", s));
 						e.setCancelled(true);
 						break;
 					}

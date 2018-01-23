@@ -21,7 +21,7 @@ public class MainCommand implements CommandExecutor {
 			for (String s : instance.words_list) {
 				result += s + ", ";
 			}   
-			sender.sendMessage(ChatColor.AQUA + "Prohibited words list:" + (result)); 
+			sender.sendMessage(ChatColor.AQUA + "Prohibited words list: " + ChatColor.WHITE + (result)); 
 		}
 		return false;
 	}
