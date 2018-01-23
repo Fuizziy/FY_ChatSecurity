@@ -22,6 +22,7 @@ public class ChatSecurity extends JavaPlugin implements Listener {
 	private boolean check_commands; 
 	
 	public void onEnable() {
+		saveDefaultConfig();
 		words_list = new HashSet<String>(getConfig().getStringList("words_list"));
 		message = ChatColor.translateAlternateColorCodes('&', getConfig().getString("message"));
 		super_efficient = getConfig().getBoolean("super_efficient");
